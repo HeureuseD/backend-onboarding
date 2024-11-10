@@ -1,8 +1,7 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
-class UserRoleSerializer(serializers.Serializer):
-    role = serializers.CharField(max_length=30)
+User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
     roles = serializers.SerializerMethodField()
@@ -16,6 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
         roles = [{"role": "USER"}] # 기본적으로 role은 USER로 설정됨. 
         if obj.is_staff: 
             roles.append({"role": "STAFF"})
+        return roles
 
     def create(self, validated_data):
         password = validated_data.pop('password')
