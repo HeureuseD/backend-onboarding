@@ -50,9 +50,9 @@ def test_login(api_client):
     }
 
     response = api_client.post(url, data, format="json")
-    assert response.status_code == status.HTTP_200_OK # 로그인 API 호출이 성공적으로 수행되었는지 확인
-    assert "access" in response.data # 응답 데이터에 액세스 토큰이 포함되어 있는지 확인
-    assert "refresh" in response.data # 응답 데이터에 리프레시 토큰이 포함되어 있는지 확인
+    assert response.status_code == status.HTTP_200_OK  # 로그인 API 호출이 성공적으로 수행되었는지 확인
+    assert "token" in response.data  # 응답 데이터에 토큰이 포함되어 있는지 확인
+
 
 @pytest.mark.django_db
 def test_token_refresh(api_client):
